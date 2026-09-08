@@ -4,6 +4,10 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   root: 'src/',
 
+  server: {
+    allowedHosts: ['wdd330-block5-team6-sleepoutside.onrender.com'],
+  },
+
   build: {
     outDir: '../dist',
     rollupOptions: {
