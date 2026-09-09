@@ -1,4 +1,7 @@
 import { getLocalStorage, setLocalStorage } from './utils.mjs';
+import ProductData from './ProductData.mjs';
+
+const dataSource = new ProductData('tents');
 
 function getCartItems() {
   const cartItems = getLocalStorage('so-cart');
@@ -42,15 +45,25 @@ function removeProductFromCart(product) {
   setLocalStorage('so-cart', cartItems);
 }
 // add to cart button event handler
-export async function addToCartHandler(event, dataSource) {
-  const product = await dataSource.findProductById(event.target.dataset.id);
+export async function addToCartHandler(event, productDataSource) {
+  const product = await productDataSource.findProductById(
+    event.target.dataset.id,
+  );
   //enter product ID as key and product its`elf as value
   addProductToCart(product);
+  if (document.querySelector('.product-list')) {
+    renderCartContents();
+  }
 }
-export async function removeFromCartHandler(event, dataSource) {
-  const product = await dataSource.findProductById(event.target.dataset.id);
+export async function removeFromCartHandler(event, productDataSource) {
+  const product = await productDataSource.findProductById(
+    event.target.dataset.id,
+  );
   //enter product ID as key and product its`elf as value
   removeProductFromCart(product);
+  if (document.querySelector('.product-list')) {
+    renderCartContents();
+  }
 }
 export function clearCart() {
   setLocalStorage('so-cart', {});
@@ -74,6 +87,16 @@ function renderCartContents() {
     cartItemTemplate(item),
   );
   document.querySelector('.product-list').innerHTML = htmlItems.join('');
+  document.querySelectorAll('[data-action="add"]').forEach((button) => {
+    button.addEventListener('click', (event) =>
+      addToCartHandler(event, dataSource),
+    );
+  });
+  document.querySelectorAll('[data-action="remove"]').forEach((button) => {
+    button.addEventListener('click', (event) =>
+      removeFromCartHandler(event, dataSource),
+    );
+  });
 }
 function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">
@@ -87,7 +110,11 @@ function cartItemTemplate(item) {
     <h2 class="card__name">${item.product.Name}</h2>
   </a>
   <p class="cart-card__color">${item.product.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">qty: ${item.quantity}</p>
+  <div class="cart-card__quantity">
+    <button type="button" data-action="remove" data-id="${item.product.Id}" aria-label="Remove one ${item.product.Name}">-</button>
+    <span>qty: ${item.quantity}</span>
+    <button type="button" data-action="add" data-id="${item.product.Id}" aria-label="Add one ${item.product.Name}">+</button>
+  </div>
   <p class="cart-card__price">$${item.product.FinalPrice.toFixed(2)}</p>
   <p class="cart-card__total-label">total:</p>
   <p class="cart-card__total">$${(item.product.FinalPrice * item.quantity).toFixed(2)}</p>

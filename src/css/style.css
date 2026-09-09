@@ -234,6 +234,29 @@ button {
 .cart-card__quantity {
   grid-row: 1;
   grid-column: 3;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.35rem;
+}
+
+.cart-card__quantity button {
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--dark-grey);
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  font-weight: bold;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.cart-card__quantity button:hover,
+.cart-card__quantity button:focus-visible {
+  color: var(--tertiary-color);
 }
 
 .cart-card__price {
