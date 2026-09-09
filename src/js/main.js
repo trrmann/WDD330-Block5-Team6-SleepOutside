@@ -1,8 +1,8 @@
 import ProductData from './ProductData.mjs';
 import ProductList from './ProductList.mjs';
 
-const productListElement = document.querySelector('#product-list');
-const category = 'products';
+const productListElement = document.querySelector('.product-list');
+const category = 'tents';
 const productData = new ProductData(category);
 const productList = new ProductList(category, productData, productListElement);
 
