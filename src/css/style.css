@@ -123,12 +123,22 @@ button {
   text-align: center;
 }
 
-.cart svg {
+.cart svg,
+.cart-icon {
   width: 25px;
 }
 
-.cart:hover svg {
+.cart:hover svg,
+.cart:hover .cart-icon {
   fill: gray;
+}
+
+.cart sup {
+  position: absolute;
+  top: 0.25rem;
+  right: -0.25rem;
+  font-size: 0.75rem;
+  font-weight: bold;
 }
 
 /* End cart icon styles */

@@ -1,7 +1,14 @@
-import { addToCartHandler } from './cart.js';
+import { addToCartHandler, getCartCount } from './cart.js';
 import ProductData from './ProductData.mjs';
 
 const dataSource = new ProductData('tents');
+
+function updateCartCount() {
+  const cartCount = document.querySelector('#cart-count');
+  if (cartCount) {
+    cartCount.textContent = getCartCount();
+  }
+}
 
 function renderProduct(product) {
   document.title = `Sleep Outside | ${product.Name}`;
@@ -36,9 +43,13 @@ async function init() {
   }
 
   renderProduct(product);
+  updateCartCount();
   document
     .getElementById('addToCart')
-    .addEventListener('click', (event) => addToCartHandler(event, dataSource));
+    .addEventListener('click', async (event) => {
+      await addToCartHandler(event, dataSource);
+      updateCartCount();
+    });
 }
 
 init();
