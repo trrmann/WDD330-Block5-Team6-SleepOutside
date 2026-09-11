@@ -18,11 +18,6 @@ export default class ProductDetails{
         //get product details from data source, find product by ID
         this.product = await this.dataSource.findProductById(this.productId);
 
-
-        //Code used to iterate through and view product data
-        Object.keys(this.product).forEach(key => {
-        console.log(key, this.product[key]);
-        });
         
         this.renderProductDetails(this.product);
 
