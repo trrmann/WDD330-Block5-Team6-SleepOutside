@@ -21,6 +21,7 @@ export default class ProductList {
         <img src="${product.Image}" alt="Image of ${product.Name}" class="card__image" />
         <h2 class="card__brand">${product.Brand.Name}</h2>
         <h3 class="card__name">${product.NameWithoutBrand}</h3>
+        <p class="product-card__sale"> ${((product.SuggestedRetailPrice - product.FinalPrice) / product.SuggestedRetailPrice * 100).toFixed(0)}% Off!</p>
         <p class="product-card__price">$${product.FinalPrice.toFixed(2)}</p>
       </a>
     </li>
