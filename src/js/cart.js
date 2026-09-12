@@ -33,6 +33,7 @@ function addProductToCart(product) {
   }
   setLocalStorage('so-cart', cartItems);
 }
+
 function removeProductFromCart(product) {
   const cartItems = getCartItems();
   const productKey = product.Id;
@@ -44,6 +45,7 @@ function removeProductFromCart(product) {
   }
   setLocalStorage('so-cart', cartItems);
 }
+
 // add to cart button event handler
 export async function addToCartHandler(event, productDataSource) {
   const product = await productDataSource.findProductById(
@@ -55,6 +57,7 @@ export async function addToCartHandler(event, productDataSource) {
     renderCartContents();
   }
 }
+
 export async function removeFromCartHandler(event, productDataSource) {
   const product = await productDataSource.findProductById(
     event.target.dataset.id,
@@ -65,13 +68,16 @@ export async function removeFromCartHandler(event, productDataSource) {
     renderCartContents();
   }
 }
+
 export function clearCart() {
   setLocalStorage('so-cart', {});
 }
+
 export function getCartProductCount() {
   const cartItems = getCartItems();
   return Object.keys(cartItems).length;
 }
+
 export function getCartCount() {
   const cartItems = getCartItems();
   let count = 0;
@@ -105,7 +111,11 @@ function renderCartContents() {
     );
   });
   updateCartCount();
+
+  //render the total price of all items in the cart
+  renderGrandTotal();
 }
+
 function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
@@ -124,11 +134,40 @@ function cartItemTemplate(item) {
     <button type="button" data-action="add" data-id="${item.product.Id}" aria-label="Add one ${item.product.Name}">+</button>
   </div>
   <p class="cart-card__price">$${item.product.FinalPrice.toFixed(2)}</p>
-  <p class="cart-card__total-label">total:</p>
+  <p class="cart-card__total-label">Subtotal:</p>
   <p class="cart-card__total">$${(item.product.FinalPrice * item.quantity).toFixed(2)}</p>
 </li>`;
 
   return newItem;
+}
+
+function calculateGrandTotal(cartItems) {
+  /**
+   * Calculates the grand total price of all of the items in the cart
+   */
+
+  let total = 0;
+
+  Object.keys(cartItems).forEach((key) => {
+    const value = cartItems[key];
+    //get the final price of the product in the cart and convert it to float, so it can be added to the total
+    let price = value.product.FinalPrice;
+
+    total += parseFloat(parseInt(value.quantity) * price);
+  });
+
+  return total.toFixed(2);
+}
+
+function renderGrandTotal() {
+  const cartItems = getCartItems();
+  if (Object.keys(cartItems).length === 0) {
+    //if no items hide grand total
+    document.querySelector('.cart-footer-hide').style.display = 'none';
+  } else {
+    document.querySelector('#cart-total-display').innerHTML =
+      `<strong>Total: $${calculateGrandTotal(cartItems)}</strong>`;
+  }
 }
 
 if (document.querySelector('#cart-list')) {
@@ -136,27 +175,3 @@ if (document.querySelector('#cart-list')) {
 } else {
   updateCartCount();
 }
-
-//Changelog: Zachary P Newby
-//9.5.26
-/**
- * I created my own solution but implemented the example one to prevent conflicts*/
-
-/*
-function addProductToCart(productKey,product) {
-  
- *  Adds an item to the cart, storing cart contents in localStorage
- * @param {string} productKey the value to be used as the key to find the product
- * @param {object} product the product to be stored in the cart
- * 
-  setLocalStorage(productKey, product);
-}
-
-// add to cart button event handler
-async function addToCartHandler(e) {
-  
-  const product = await dataSource.findProductById(e.target.dataset.id);
-  //enter product ID as key and product itself as value
-  addProductToCart(product["Id"], product);
-}
-*/

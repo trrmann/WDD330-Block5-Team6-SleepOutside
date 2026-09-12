@@ -17,24 +17,10 @@ export default class ProductDetails{
         
         //get product details from data source, find product by ID
         this.product = await this.dataSource.findProductById(this.productId);
-
-
-        //Code used to iterate through and view product data
-        Object.keys(this.product).forEach(key => {
-        console.log(key, this.product[key]);
-        });
         
         this.renderProductDetails(this.product);
-
-
-        document.getElementById('addToCart').addEventListener('click', this.addProductToCart.bind(this));
     }
 
-    addProductToCart(product) {
-        const cartItems = getLocalStorage('so-cart') || []; // get cart array of items from local storage if null set to empty array
-        cartItems.push(product);
-        setLocalStorage('so-cart', cartItems);
-    }
 
     renderProductDetails(product){
 
@@ -44,7 +30,7 @@ export default class ProductDetails{
 
         const clone = sectionTemplate.content.cloneNode(true);
         
-        const [name, image, retail, sale, cardPrice, color, description ] = clone.querySelectorAll("h3, img, p, p, p, p, p, p");
+        const [name, image, retail, sale, cardPrice, color, description, addToCartButton ] = clone.querySelectorAll("h3, img, p, p, p, p, p, p, button");
 
         name.innerHTML = `${product.Name}`;
         image.src = `${product.Image}`;
@@ -55,6 +41,8 @@ export default class ProductDetails{
 
         color.innerHTML = `${product.Colors[0].ColorName}`;
         description.innerHTML =`${product.DescriptionHtmlSimple}`;
+
+        addToCartButton.dataset.id = `${product.Id}`;
 
         main.appendChild(clone);
     }
