@@ -81,12 +81,19 @@ export function getCartCount() {
   return count;
 }
 
+function updateCartCount() {
+  const cartCount = document.querySelector('#cart-count');
+  if (cartCount) {
+    cartCount.textContent = getCartCount();
+  }
+}
+
 function renderCartContents() {
   const cartItems = getCartItems();
   const htmlItems = Object.values(cartItems).map((item) =>
     cartItemTemplate(item),
   );
-  document.querySelector('.product-list').innerHTML = htmlItems.join('');
+  document.querySelector('#cart-list').innerHTML = htmlItems.join('');
   document.querySelectorAll('[data-action="add"]').forEach((button) => {
     button.addEventListener('click', (event) =>
       addToCartHandler(event, dataSource),
@@ -97,6 +104,7 @@ function renderCartContents() {
       removeFromCartHandler(event, dataSource),
     );
   });
+  updateCartCount();
 }
 function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">
@@ -123,8 +131,10 @@ function cartItemTemplate(item) {
   return newItem;
 }
 
-if (document.querySelector('.product-list')) {
+if (document.querySelector('#cart-list')) {
   renderCartContents();
+} else {
+  updateCartCount();
 }
 
 //Changelog: Zachary P Newby
