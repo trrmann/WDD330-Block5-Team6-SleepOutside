@@ -285,6 +285,17 @@ button {
   font-weight: bold;
 }
 
+.cart-footer-hide {
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.cart-footer-hide p {
+  align-self: flex-end;
+}
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
