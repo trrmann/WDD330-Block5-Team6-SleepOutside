@@ -311,7 +311,6 @@ button {
     grid-template-columns: 150px auto 15%;
   }
 }
-
 footer {
   font-size: var(--small-font);
   padding: 1em;

@@ -1,9 +1,10 @@
 import { getLocalStorage, setLocalStorage } from './utils.mjs';
 import ProductData from './ProductData.mjs';
-
+import { loadHeaderFooter } from './utils.mjs';
+import ShoppingCart from './shoppingCart.mjs';
 const dataSource = new ProductData('tents');
 
-function getCartItems() {
+export function getCartItems() {
   const cartItems = getLocalStorage('so-cart');
   if (
     cartItems !== null &&
@@ -20,7 +21,7 @@ function getCartItems() {
   return cart;
 }
 
-function addProductToCart(product) {
+export function addProductToCart(product) {
   const cartItems = getCartItems();
   const productKey = product.Id;
   if (productKey in cartItems) {
@@ -34,7 +35,7 @@ function addProductToCart(product) {
   setLocalStorage('so-cart', cartItems);
 }
 
-function removeProductFromCart(product) {
+export function removeProductFromCart(product) {
   const cartItems = getCartItems();
   const productKey = product.Id;
   if (productKey in cartItems) {
@@ -78,7 +79,7 @@ export function getCartProductCount() {
   return Object.keys(cartItems).length;
 }
 
-export function getCartCount() {
+/*export function getCartCount() {
   const cartItems = getCartItems();
   let count = 0;
   for (const key in cartItems) {
@@ -144,7 +145,7 @@ function cartItemTemplate(item) {
 function calculateGrandTotal(cartItems) {
   /**
    * Calculates the grand total price of all of the items in the cart
-   */
+   
 
   let total = 0;
 
@@ -168,10 +169,16 @@ function renderGrandTotal() {
     document.querySelector('#cart-total-display').innerHTML =
       `<strong>Total: $${calculateGrandTotal(cartItems)}</strong>`;
   }
-}
+}*/
 
+  let cart;
 if (document.querySelector('#cart-list')) {
-  renderCartContents();
+  cart = new ShoppingCart('#cart-list');
+  cart.init();
+
 } else {
-  updateCartCount();
+  cart = new ShoppingCart();
+    cart.init();
+
 }
+loadHeaderFooter();
