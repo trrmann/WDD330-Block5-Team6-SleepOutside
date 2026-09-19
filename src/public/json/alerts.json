@@ -1,0 +1,17 @@
+[
+  {
+    "message": "Attention: Say Cheese!",
+    "backgroundColor": "#1B1D50",
+    "textColor": "#FFFFFF"
+  },
+  {
+    "message": "Attention: FLASH SALE ON GIRLS CROCS!",
+    "backgroundColor": "#DAF7A6",
+    "textColor": "#0B0A0A"
+  },
+  {
+    "message": "ALERT!: MISSLES INBOUND!",
+    "backgroundColor": "#F26C6C",
+    "textColor": "#0B0A0A"
+  }
+]

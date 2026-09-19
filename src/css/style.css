@@ -308,6 +308,27 @@ button {
   align-self: flex-end;
 }
 
+/* END cart list card styles */
+
+/* Start alert styles */
+
+.alert-list {
+  margin: 1.5vh 1.5vw;
+  padding: 1vh 1vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.alert {
+  max-height: 7vh;
+  font-size: 1rem;
+  margin: 0.5vh 0.5vw;
+  border-width: 0.1rem;
+  border-style: solid;
+  box-shadow: 0.1rem 0.1rem 5px #3030308f;
+}
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
