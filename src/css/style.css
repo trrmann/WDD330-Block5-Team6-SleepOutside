@@ -98,6 +98,18 @@ p {
 .highlight {
   color: var(--tertiary-color);
 }
+#product-categories-display {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  padding: 1vw 1vh;
+}
+
+#product-categories-display a svg {
+  max-width: 12vw;
+  max-height: 12vh;
+}
 
 button {
   padding: 0.5em 2em;

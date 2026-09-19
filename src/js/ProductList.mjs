@@ -5,7 +5,8 @@ export default class ProductList {
     this.listElement = listElement;
   }
   async init() {
-    const list = await this.dataSource.getData();
+    const list = await this.dataSource.getData(this.category);
+    
     this.renderList(
       this.productCardTemplate.bind(this),
       this.listElement,
@@ -18,7 +19,7 @@ export default class ProductList {
     return `
     <li class="product-card">
       <a href="product_pages/?product=${product.Id}">
-        <img src="${product.Image}" alt="Image of ${product.Name}" class="card__image" />
+        <img src="${product.Images.PrimaryMedium}" alt="Image of ${product.Name}" class="card__image" />
         <h2 class="card__brand">${product.Brand.Name}</h2>
         <h3 class="card__name">${product.NameWithoutBrand}</h3>
         <p class="product-card__sale"> ${((product.SuggestedRetailPrice - product.FinalPrice) / product.SuggestedRetailPrice * 100).toFixed(0)}% Off!</p>

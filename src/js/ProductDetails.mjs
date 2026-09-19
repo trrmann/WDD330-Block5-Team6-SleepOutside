@@ -1,4 +1,5 @@
 import {getLocalStorage, setLocalStorage} from './utils.mjs';
+const baseURL = import.meta.env.VITE_SERVER_URL;
 
 export default class ProductDetails{
     
@@ -16,8 +17,9 @@ export default class ProductDetails{
         
         
         //get product details from data source, find product by ID
-        this.product = await this.dataSource.findProductById(this.productId);
         
+        this.product = await this.dataSource.findProductById(this.productId);
+    
         this.renderProductDetails(this.product);
     }
 
@@ -33,7 +35,7 @@ export default class ProductDetails{
         const [name, image, retail, sale, cardPrice, color, description, addToCartButton ] = clone.querySelectorAll("h3, img, p, p, p, p, p, p, button");
 
         name.innerHTML = `${product.Name}`;
-        image.src = `${product.Image}`;
+        image.src = `${product.Images.PrimaryLarge}`;
         image.alt = `${product.Name}`;
         retail.innerHTML = `Retail: $${product.SuggestedRetailPrice}`;
         sale.innerHTML = `Discount: ${((product.SuggestedRetailPrice - product.FinalPrice) / product.SuggestedRetailPrice * 100).toFixed(0)}% Save: $${(product.SuggestedRetailPrice - product.FinalPrice).toFixed(2)}! `;
