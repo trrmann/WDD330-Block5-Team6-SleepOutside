@@ -316,3 +316,13 @@ footer {
   font-size: var(--small-font);
   padding: 1em;
 }
+.product-card__sale {
+  font-size: var(--small-font);
+  background-color: rgba(0, 255, 0, 0.7);
+  color: black;
+  border: 1px solid #303030;
+  font-weight: bold;
+  width:max-content;
+ height: max-content; 
+padding: 5px;
+}
