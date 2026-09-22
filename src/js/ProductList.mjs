@@ -15,11 +15,25 @@ export default class ProductList {
       true,
     );
   }
+  /* undated product pages href from relative to fully qualified - Tracy Mann */
   productCardTemplate(product) {
     return `
     <li class="product-card">
-      <a href="product_pages/?product=${product.Id}">
-        <img src="${product.Images.PrimaryMedium}" alt="Image of ${product.Name}" class="card__image" />
+      <a href="/product_pages/?product=${product.Id}">
+        <img srcset = "${product.Images.PrimarySmall} 80w,
+             ${product.Images.PrimaryMedium} 160w,
+             ${product.Images.PrimaryLarge} 320w,"
+             ${product.Images.PrimaryExtraLarge} 600w"
+          sizes = "(max-width: 120px) 80w,
+            (max-width: 240px) 160w,
+            (max-width: 460px) 320w,
+            600w"
+          src="${product.Images.PrimaryMedium}"
+          alt = "Image of ${product.Name}"
+          loading = "lazy"
+          width = "160"
+          class="card__image"
+        />
         <h2 class="card__brand">${product.Brand.Name}</h2>
         <h3 class="card__name">${product.NameWithoutBrand}</h3>
         <p class="product-card__sale"> ${((product.SuggestedRetailPrice - product.FinalPrice) / product.SuggestedRetailPrice * 100).toFixed(0)}% Off!</p>

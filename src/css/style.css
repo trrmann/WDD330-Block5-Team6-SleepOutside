@@ -217,7 +217,9 @@ button {
 
 .product-detail {
   padding: 1em;
-  max-width: 500px;
+  /*max-width: 500px;*/
+  width: 80%;
+  max-width: 800px;
   margin: auto;
 }
 
@@ -237,6 +239,11 @@ button {
 .cart-card__image {
   grid-row: 1/3;
   grid-column: 1;
+}
+
+.card-card img {
+  width: 90%;
+  margin: auto;
 }
 
 .cart-card p {
