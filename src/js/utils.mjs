@@ -1,7 +1,10 @@
 import { getCartCount } from './cart.js';
 
 function displayCartCount(count){
-document.querySelector('#cart-count').textContent = count;}
+
+document.querySelector('#cart-count').textContent = count;
+
+}
 
 
 // wrapper for querySelector...returns matching element
