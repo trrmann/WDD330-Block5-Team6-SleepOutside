@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sleep Outside | Home</title>
     <link rel="stylesheet" href="/css/style.css" />
-    <script src="/js/main.js" type="module" defer></script>
+    <script src="/js/product-listing.js" type="module"></script>
   </head>
 
   <body>
     <header class="divider">
       <div class="logo">
         <img src="/images/noun_Tent_2517.svg" alt="tent image for logo" />
-        <a href="index.html"> Sleep<span class="highlight">Outside</span></a>
+        <a href="/index.html"> Sleep<span class="highlight">Outside</span></a>
       </div>
       <div class="cart">
         <a href="cart/index.html" aria-label="View cart">
@@ -48,112 +48,29 @@
       </div>
     </header>
     <main class="divider">
-      <div class="hero">
-        <img
-          src="/images/banner-sm.jpg"
-          srcset="images/banner-sm.jpg 500w, images/banner.jpg"
-          alt="image of a high mountain lake"
-        />
-        <div class="logo logo--square">
-          <img src="/images/noun_Tent_2517.svg" alt="tent image for logo" />
-          <div>Sleep<span class="highlight">Outside</span></div>
-        </div>
-        <div class="mission">
-          <p>
-            Our mission is to provide you with everything you need to sleep
-            outside comfortably at an affordable price.
-          </p>
-        </div>
-      </div>
-      <section class="categories">
-        <ul class="category-list">
-          <li class="category-card">
-            <a href="/product_listing/index.html?category=tents">
-              <img
-                src="/images/category-tents.svg"
-                alt="Tents Category Image"
-              />
-              <h2 class="card__name">Tents</h2>
-            </a>
-          </li>
-          <li class="category-card">
-            <a href="/product_listing/index.html?category=backpacks">
-              <img
-                src="/images/category-backpacks.svg"
-                alt="Backpacks Category Image"
-              />
-              <h2 class="card__name">Backpacks</h2>
-            </a>
-          </li>
-          <li class="category-card">
-            <a href="/product_listing/index.html?category=sleeping-bags">
-              <img
-                src="/images/category-sleepingbags.svg"
-                alt="Sleeping Bags Category Image"
-              />
-              <h2 class="card__name">Sleeping Bags</h2>
-            </a>
-          </li>
-          <li class="category-card">
-            <a href="/product_listing/index.html?category=hammocks">
-              <img
-                src="/images/category-hammocks.svg"
-                alt="Hammocks Category Image"
-              />
-              <h2 class="card__name">Hammocks</h2>
-            </a>
-          </li>
-        </ul>
-      </section>
-      <!--<section class="products">
-        <h2>Top Products</h2>
-        <ul class="product-list">
-          <li class="product-card">
-            <a href="product_pages/marmot-ajax-3.html">
-              <img
-                src="images/tents/marmot-ajax-tent-3-person-3-season-in-pale-pumpkin-terracotta~p~880rr_01~320.jpg"
-                alt="Marmot Ajax tent"
-              />
-              <h3 class="card__brand">Marmot</h3>
-              <h2 class="card__name">Ajax Tent - 3-Person, 3-Season</h2>
-              <p class="product-card__price">$199.99</p>
-            </a>
-          </li>
-          <li class="product-card">
-            <a href="product_pages/northface-talus-4.html">
-              <img
-                src="images/tents/the-north-face-talus-tent-4-person-3-season-in-golden-oak-saffron-yellow~p~985rf_01~320.jpg"
-                alt="Talus Tent - 4-Person, 3-Season"
-              />
-              <h3 class="card__brand">The North Face</h3>
-              <h2 class="card__name">Talus Tent - 4-Person, 3-Season</h2>
-              <p class="product-card__price">$199.99</p>
-            </a>
-          </li>
-          <li class="product-card">
-            <a href="product_pages/northface-alpine-3.html">
-              <img
-                src="images/tents/the-north-face-alpine-guide-tent-3-person-4-season-in-canary-yellow-high-rise-grey~p~985pr_01~320.jpg"
-                alt="Alpine Guide Tent - 3-Person, 4-Season"
-              />
-              <h3 class="card__brand">The North Face</h3>
-              <h2 class="card__name">Alpine Guide Tent - 3-Person, 4-Season</h2>
-              <p class="product-card__price">$349.99</p>
-            </a>
-          </li>
-          <li class="product-card">
-            <a href="product_pages/cedar-ridge-rimrock-2.html">
-              <img
-                src="images/tents/cedar-ridge-rimrock-tent-2-person-3-season-in-rust-clay~p~344yj_01~320.jpg"
-                alt="Rimrock Tent - 2-Person, 3-Season"
-              />
-              <h3 class="card__brand">Cedar Ridge</h3>
-              <h2 class="card__name">Rimrock Tent - 2-Person, 3-Season</h2>
-              <p class="product-card__price">$69.99</p>
-            </a>
-          </li>
-        </ul>
-      </section>-->
+      <main class="divider">
+        <!--<div class="hero">
+          <img
+            src="/images/banner-sm.jpg"
+            srcset="/images/banner-sm.jpg 500w, /images/banner.jpg"
+            alt="image of a high mountain lake"
+          />
+          <div class="logo logo--square">
+            <img src="/images/noun_Tent_2517.svg" alt="tent image for logo" />
+            <div>Sleep<span class="highlight">Outside</span></div>
+          </div>
+          <div class="mission">
+            <p>
+              Our mission is to provide you with everything you need to sleep
+              outside comfortably at an affordable price.
+            </p>
+          </div>
+        </div>-->
+        <section class="products">
+          <h2>Top Products: <span id="category"></span></h2>
+          <ul class="product-list"></ul>
+        </section>
+      </main>
     </main>
     <footer>
       &copy;2025 ⛺ SleepOutside ⛺ WDD 330 ⛺ BYU-Idaho for BYU-Pathway

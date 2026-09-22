@@ -161,6 +161,37 @@ button {
   text-align: center;
 }
 
+.categories {
+  margin-top: 2rem;
+  padding: 1rem;
+}
+
+.category-list {
+  display: flex;
+  flex-flow: row wrap;
+  list-style-type: none;
+  justify-content: center;
+}
+
+.category-list a {
+  text-decoration: none;
+  color: var(--dark-grey);
+}
+
+.category-card {
+  flex: 1 1 45%;
+  margin: 0.25em;
+  padding: 0.5em;
+  border: 1px solid var(--light-grey);
+  max-width: 250px;
+}
+
+.category-card h2,
+.category-card h3,
+.category-card p {
+  margin: 0.5em 0;
+}
+
 .products {
   margin-top: 2rem;
   padding: 1rem;
