@@ -119,10 +119,18 @@ function renderCartContents() {
 function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
-    <img
-      src="${item.product.Images.PrimaryMedium}"
-      alt="${item.product.Name}"
-    />
+    <img srcset = "${item.product.Images.PrimarySmall} 80w,
+             ${item.product.Images.PrimaryMedium} 160w,
+             ${item.product.Images.PrimaryLarge} 320w,"
+             ${item.product.Images.PrimaryExtraLarge} 600w"
+          sizes = "(max-width: 120px) 80w,
+            (max-width: 240px) 160w,
+            (max-width: 460px) 320w,
+            600w"
+          src="${item.product.Images.PrimarySmall}"
+          alt = "Image of ${item.Name}"
+          loading = "lazy"
+        />
   </a>
   <a href="#">
     <h2 class="card__name">${item.product.Name}</h2>

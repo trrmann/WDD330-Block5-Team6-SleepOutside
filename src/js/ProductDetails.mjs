@@ -27,22 +27,32 @@ export default class ProductDetails{
     renderProductDetails(product){
 
 
-        const sectionTemplate = document.getElementById("productDetailTemplate");
-        const main = document.getElementById("main");
+        const sectionTemplate = document.getElementById('productDetailTemplate');
+        const main = document.getElementById('main');
 
         const clone = sectionTemplate.content.cloneNode(true);
         
-        const [name, image, retail, sale, cardPrice, color, description, addToCartButton ] = clone.querySelectorAll("h3, img, p, p, p, p, p, p, button");
+        const [name, image, retail, sale, cardPrice, color, description, addToCartButton ] = clone.querySelectorAll('h3, img, p, p, p, p, p, p, button');
 
         name.innerHTML = `${product.Name}`;
+        image.srcset = product.Images.PrimarySmall + ' 80w, ' +
+             product.Images.PrimaryMedium + ' 160w, ' +
+             product.Images.PrimaryLarge + ' 320w, ' +
+             product.Images.PrimaryExtraLarge + ' 600w';
+        image.sizes = '(max-width: 120px) 80w, ' +
+            '(max-width: 240px) 160w, ' +
+            '(max-width: 460px) 320w, ' +
+            '600w';
         image.src = `${product.Images.PrimaryLarge}`;
         image.alt = `${product.Name}`;
+        image.loading = 'lazy';
+        image.width = '320';
         retail.innerHTML = `Retail: $${product.SuggestedRetailPrice}`;
         sale.innerHTML = `Discount: ${((product.SuggestedRetailPrice - product.FinalPrice) / product.SuggestedRetailPrice * 100).toFixed(0)}% Save: $${(product.SuggestedRetailPrice - product.FinalPrice).toFixed(2)}! `;
-        cardPrice.innerHTML= `Final: $${product.ListPrice}`;
+        cardPrice.innerHTML = `Final: $${product.ListPrice}`;
 
         color.innerHTML = `${product.Colors[0].ColorName}`;
-        description.innerHTML =`${product.DescriptionHtmlSimple}`;
+        description.innerHTML = `${product.DescriptionHtmlSimple}`;
 
         addToCartButton.dataset.id = `${product.Id}`;
 
