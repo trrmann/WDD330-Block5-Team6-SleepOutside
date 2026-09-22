@@ -45,8 +45,13 @@ function removeProductFromCart(product) {
   setLocalStorage('so-cart', cartItems);
 }
 // add to cart button event handler
-export async function addToCartHandler(event, productDataSource) {
+export async function addToCartHandler(
+  event,
+  productDataSource,
+  productCategory,
+) {
   const product = await productDataSource.findProductById(
+    productCategory,
     event.target.dataset.id,
   );
   //enter product ID as key and product its`elf as value
@@ -109,10 +114,18 @@ function renderCartContents() {
 function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
-    <img
-      src="${item.product.Image}"
-      alt="${item.product.Name}"
-    />
+    <img src="${item.Images.PrimarySmall}"
+          srcset="${item.Images.PrimarySmall} 80w,
+            ${item.Images.PrimaryMedium} 160w,
+            ${item.Images.PrimaryLarge} 320w,
+            ${item.Images.PrimaryExtraLarge} 600w"
+          sizes="(max-width: 120px) 80px,
+            (max-width: 240px) 160px,
+            (max-width: 380px) 320px,
+            600px"
+          alt="Image of ${item.Name}"
+          loading="lazy"
+          width="600" />
   </a>
   <a href="#">
     <h2 class="card__name">${item.product.Name}</h2>
@@ -127,7 +140,6 @@ function cartItemTemplate(item) {
   <p class="cart-card__total-label">total:</p>
   <p class="cart-card__total">$${(item.product.FinalPrice * item.quantity).toFixed(2)}</p>
 </li>`;
-
   return newItem;
 }
 

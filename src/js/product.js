@@ -1,8 +1,6 @@
 import { addToCartHandler, getCartCount } from './cart.js';
 import ProductData from './ProductData.mjs';
 
-const dataSource = new ProductData('tents');
-
 function updateCartCount() {
   const cartCount = document.querySelector('#cart-count');
   if (cartCount) {
@@ -17,8 +15,21 @@ function renderProduct(product) {
     product.NameWithoutBrand;
 
   const image = document.querySelector('#product-image');
-  image.src = product.Image;
-  image.alt = product.Name;
+  image.src = product.Images.PrimarySmall;
+  image.srcset =
+    product.Images.PrimarySmall +
+    ' 80w, ' +
+    product.Images.PrimaryMedium +
+    ' 160w, ' +
+    product.Images.PrimaryLarge +
+    ' 320w, ' +
+    product.Images.PrimaryExtraLarge +
+    ' 600w';
+  image.sizes =
+    '(max-width: 120px) 80px, (max-width: 240px) 160px, (max-width: 380px) 320px, 600px';
+  image.alt = 'Image of ' + product.Name;
+  image.loading = 'lazy';
+  image.width = '600';
 
   document.querySelector('#product-price').textContent =
     `$${product.FinalPrice.toFixed(2)}`;
@@ -31,10 +42,12 @@ function renderProduct(product) {
 }
 
 async function init() {
+  const category = new URLSearchParams(window.location.search).get('category');
   const productId =
     new URLSearchParams(window.location.search).get('product') ||
     document.querySelector('#addToCart')?.dataset.id;
-  const product = await dataSource.findProductById(productId);
+  const dataSource = new ProductData(category);
+  const product = await dataSource.findProductById(category, productId);
 
   if (!product) {
     document.querySelector('.product-detail').textContent =
@@ -47,7 +60,7 @@ async function init() {
   document
     .getElementById('addToCart')
     .addEventListener('click', async (event) => {
-      await addToCartHandler(event, dataSource);
+      await addToCartHandler(event, dataSource, category);
       updateCartCount();
     });
 }
