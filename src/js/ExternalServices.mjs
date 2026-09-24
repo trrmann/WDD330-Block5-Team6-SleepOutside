@@ -8,7 +8,7 @@ function convertToJson(res) {
   }
 }
 
-export default class ProductData {
+export default class ExternalServices {
   constructor() {  }
 
 
@@ -25,5 +25,12 @@ export default class ProductData {
     
 
     return data.Result;
+  }
+
+  async checkout(jsonData) {
+    Object.entries(jsonData).forEach(([key, value]) => {
+console.log(key, value);
+});
+
   }
 }

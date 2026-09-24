@@ -8,22 +8,20 @@
 
     <title>Sleep Outside | Checkout</title>
 
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+
+    <script src="../js/CheckoutProcess.mjs" type="module"></script>
   </head>
 
   <body>
     <header class="divider">
       <div class="logo">
-        <img src="images/noun_Tent_2517.svg" alt="tent image for logo" />
-
-        <a href="index.html">
-          Sleep
-          <span class="highlight">Outside</span>
-        </a>
+        <img src="/images/noun_Tent_2517.svg" alt="tent image for logo" />
+        <a href="/index.html"> Sleep<span class="highlight">Outside</span></a>
       </div>
 
       <div class="cart">
-        <a href="cart/">
+        <a href="../cart/index.html">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
             <path
               d="M18.9 32.6c1.1 2.4 2.5 3.3 5.4 3.3 1.6 0 3.6-0.3 5.9-0.6 3.2-0.5 6.9-1 11.2-1 2.1 0 4.3 0.1 6.4 0.3 2.1 0.1 4.2 0.3 6.1 0.3 3.2 0 5.2-0.4 5.9-1.2 2.7-2.7 2.8-8.8 2.9-14.6 0.1-6.7 0.2-14.5 4.6-18.7 -0.5 0-1 0-1.6 0 -14.2 0-37.5 0-41.1 0C15.6 6.2 14.9 23.6 18.9 32.6z"
@@ -52,16 +50,108 @@
             <!-- <text x="0" y="115" fill="#000000" font-size="5px" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif">Created by Natalia Woodroffe</text>
             <text x="0" y="120" fill="#000000" font-size="5px" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif">from the Noun Project</text> -->
           </svg>
+          <sup id="cart-count" aria-label="items in cart">0</sup>
         </a>
       </div>
     </header>
-
-    <main class="divider">
-      <section class="products">
+    <main class="checkout-divider">
+      <!-- Section 1: Order Information Soft Box Card -->
+      <section class="checkout-products">
         <h2>Review & Place your Order</h2>
+        <div class="checkout-product-list-wrapper">
+          <div class="checkout-product-list-header-row">
+            <span>Name</span>
+            <span>Price</span>
+            <span>Quantity</span>
+            <span>Subtotal</span>
+          </div>
+          <ul class="checkout-product-list">
+            <!-- Live target injection layer container for cloned template instances -->
+          </ul>
+          <!-- Reusable HTML5 Element Template Blueprint -->
+          <template id="checkout-product-item-template">
+            <li class="checkout-product-item">
+              <span class="product-name"></span>
+              <span class="item-price"></span>
+              <span class="item-quantity"></span>
+              <span class="item-subtotal"></span>
+            </li>
+          </template>
+        </div>
+        <!-- Financial Breakdown Ledger -->
+        <div class="checkout-summary">
+          <!-- Single Accounting Divider Line applies right above this paragraph block -->
+          <p class="summary-row subtotal-row">
+            <span class="label">Subtotal:</span>
+            <span id="checkout-subtotal">$0.00</span>
+          </p>
+          <p class="summary-row">
+            <span class="label">Tax (6%):</span>
+            <span id="checkout-tax">$0.00</span>
+          </p>
+          <p class="summary-row">
+            <span class="label">Shipping Estimate:</span>
+            <span id="checkout-shipping">$0.00</span>
+          </p>
+          <!-- Double Accounting Divider Line applies right above this total paragraph block -->
+          <p class="summary-row total-row">
+            <span class="label">Total:</span>
+            <span id="checkout-total">$0.00</span>
+          </p>
+        </div>
+      </section>
+      <!-- Section 2: Customer Information Soft Box Card -->
+      <section class="customer-information">
+        <form
+          id="checkout-form"
+          onsubmit="import CheckoutProcess from '/js/CheckoutProcess.mjs'; event.preventDefault(); const myCheckout = new CheckoutProcess(); myCheckout.init(); myCheckout.checkout(this);"
+          novalidate
+        >
+          <h2>Customer Information</h2>
+          <!-- Hidden inline notification alert area -->
+          <div id="validation-alert" class="checkout-hidden-alert" role="alert">
+            Please correct the highlighted fields before checking out.
+          </div>
+          <label for="fname"
+            >First Name <span class="required-asterisk"></span
+          ></label>
+          <input type="text" id="fname" name="fname" required />
+          <label for="lname"
+            >Last Name <span class="required-asterisk"></span
+          ></label>
+          <input type="text" id="lname" name="lname" required />
+          <label for="address"
+            >Street Address <span class="required-asterisk"></span
+          ></label>
+          <input type="text" id="address" name="address" required />
+          <label for="city">City <span class="required-asterisk"></span></label>
+          <input type="text" id="city" name="city" required />
+          <label for="state"
+            >State <span class="required-asterisk"></span
+          ></label>
+          <input type="text" id="state" name="state" required />
+          <label for="zip"
+            >Zip Code <span class="required-asterisk"></span
+          ></label>
+          <input type="text" id="zip" name="zip" required />
+          <label for="cardnumber"
+            >Credit Card Number <span class="required-asterisk"></span
+          ></label>
+          <input type="number" id="cardnumber" name="card" required />
+          <label for="expdate"
+            >Expiration Date <span class="required-asterisk"></span
+          ></label>
+          <input type="date" id="expdate" name="exp" required />
+          <label for="cvv"
+            >Security Code <span class="required-asterisk"></span
+          ></label>
+          <input type="number" id="cvv" name="cvv" required />
+          <button type="submit" class="checkout-order-button">
+            Checkout Order
+          </button>
+        </form>
       </section>
     </main>
-
     <footer>&copy;NOT a real business</footer>
   </body>
 </html>
