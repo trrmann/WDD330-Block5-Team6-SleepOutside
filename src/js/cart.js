@@ -1,9 +1,9 @@
 import { getLocalStorage, setLocalStorage } from './utils.mjs';
-import ProductData from './ProductData.mjs';
+import ExternalServices from './ExternalServices.mjs';
 
-const dataSource = new ProductData('tents');
+const dataSource = new ExternalServices('tents');
 
-function getCartItems() {
+export function getCartItems() {
   const cartItems = getLocalStorage('so-cart');
   if (
     cartItems !== null &&
@@ -67,6 +67,17 @@ export async function removeFromCartHandler(event, productDataSource) {
   if (document.querySelector('.product-list')) {
     renderCartContents();
   }
+  if (
+    document.querySelector('#cart-count') &&
+    document.querySelector('.checkout-button')
+  ) {
+    const count = Number(document.querySelector('#cart-count').textContent);
+    if (count <= 0) {
+      document.querySelector('.checkout-button').style.display = 'none';
+    } else {
+      document.querySelector('.checkout-button').style.display = 'inline-block';
+    }
+  }
 }
 
 export function clearCart() {
@@ -87,14 +98,14 @@ export function getCartCount() {
   return count;
 }
 
-function updateCartCount() {
+export function updateCartCount() {
   const cartCount = document.querySelector('#cart-count');
   if (cartCount) {
     cartCount.textContent = getCartCount();
   }
 }
 
-function renderCartContents() {
+export function renderCartContents() {
   const cartItems = getCartItems();
   const htmlItems = Object.values(cartItems).map((item) =>
     cartItemTemplate(item),
@@ -182,4 +193,16 @@ if (document.querySelector('#cart-list')) {
   renderCartContents();
 } else {
   updateCartCount();
+}
+
+if (
+  document.querySelector('#cart-count') &&
+  document.querySelector('.checkout-button')
+) {
+  const count = Number(document.querySelector('#cart-count').textContent);
+  if (count <= 0) {
+    document.querySelector('.checkout-button').style.display = 'none';
+  } else {
+    document.querySelector('.checkout-button').style.display = 'inline-block';
+  }
 }

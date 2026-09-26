@@ -1,4 +1,6 @@
 const baseURL = import.meta.env.VITE_SERVER_URL;
+const checkoutURL = baseURL + "/checkout";
+
 
 function convertToJson(res) {
   if (res.ok) {
@@ -8,7 +10,7 @@ function convertToJson(res) {
   }
 }
 
-export default class ProductData {
+export default class ExternalServices {
   constructor() {  }
 
 
@@ -26,4 +28,18 @@ export default class ProductData {
 
     return data.Result;
   }
+
+  async checkout(jsonData) {
+  
+  const options = {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(jsonData)}
+
+  return await fetch(checkoutURL, options).then(convertToJson);
+  };
+
 }
+
