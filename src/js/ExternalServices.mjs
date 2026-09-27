@@ -2,11 +2,11 @@ const baseURL = import.meta.env.VITE_SERVER_URL;
 const checkoutURL = baseURL + "/checkout";
 
 
-function convertToJson(res) {
+async function convertToJson(res) {
   if (res.ok) {
     return res.json();
   } else {
-    throw new Error('Bad Response');
+    throw {name: 'serviceError', message: await res.json()};
   }
 }
 

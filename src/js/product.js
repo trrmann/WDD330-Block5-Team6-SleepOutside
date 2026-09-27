@@ -1,7 +1,7 @@
 import { addToCartHandler, getCartCount } from './cart.js';
 import ExternalServices from './ExternalServices.mjs';
 import ProductDetails from './ProductDetails.mjs';
-import { getParam, loadHeaderFooter } from './utils.mjs';
+import { getParam, loadHeaderFooter, alertMessage } from './utils.mjs';
 
 function updateCartCount() {
   const cartCount = document.querySelector('#cart-count');
@@ -25,6 +25,7 @@ async function init() {
   document
     .getElementById('addToCart')
     .addEventListener('click', async (event) => {
+      alertMessage('Item added to cart');
       await addToCartHandler(event, dataSource);
       updateCartCount();
     });

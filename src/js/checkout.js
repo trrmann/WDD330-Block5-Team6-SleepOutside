@@ -1,11 +1,25 @@
 import CheckoutProcess from './CheckoutProcess.mjs';
-import { renderCartContents, updateCartCount, getCartItems } from './cart.js';
-import { loadHeaderFooter } from './utils.mjs';
+import {
+  renderCartContents,
+  updateCartCount,
+  getCartItems,
+  clearCart,
+} from './cart.js';
+import { loadHeaderFooter, alertMessage } from './utils.mjs';
 
 loadHeaderFooter();
 
 const checkout = new CheckoutProcess();
 checkout.init();
+
+function handleCheckoutResponse(response) {
+  if (Object.prototype.toString.call(response) == '[object Error]') {
+    throw response;
+  } else {
+    clearCart();
+    window.location.assign('/checkout/success.html');
+  }
+}
 
 // Ensure script operations process safely after elements construct in the active tree
 document.addEventListener('DOMContentLoaded', () => {
@@ -48,11 +62,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const form = document.getElementById('checkout-form');
 
-  form.addEventListener('submit', (event) => {
-    // Native Constraint Verification validation execution intercept
-    if (!form.checkValidity()) {
-      event.preventDefault(); // Halt active form action execution lifecycle
+  form.addEventListener('submit', async (event) => {
+    const isValid = form.checkValidity();
 
+    // Native Constraint Verification validation execution intercept
+    if (isValid) {
+      try {
+        let response = await checkout.checkout(form);
+        handleCheckoutResponse(response);
+        // Success condition path state transitions
+        alertBanner.classList.remove('visible');
+        alert('Order submitted successfully!');
+      } catch (err) {
+        alertMessage(err);
+      }
+    } else {
+      event.preventDefault(); // Halt active form action execution lifecycle
       // Enforce the visual validation CSS highlight selectors
       form.classList.add('submitted');
 
@@ -64,12 +89,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (firstInvalidInput) {
         firstInvalidInput.focus();
       }
-    } else {
-      // Success condition path state transitions
-      alertBanner.classList.remove('visible');
-      alert('Order submitted successfully!');
-      // Execute your specific checkout logic actions here (e.g. Fetch API Post payloads)
-      checkout.checkout(form);
     }
   });
 });

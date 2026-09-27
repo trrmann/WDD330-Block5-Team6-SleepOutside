@@ -592,12 +592,34 @@ end checkout styles
 }
 
 .alert {
+  min-height: 2.5rem;
   max-height: 7vh;
   font-size: 1rem;
   margin: 0.5vh 0.5vw;
   border-width: 0.1rem;
   border-style: solid;
   box-shadow: 0.1rem 0.1rem 5px #3030308f;
+  background-color: #f05c2f;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  button {
+    background-color: #f05c2f;
+    display: inline;
+    min-height: 1vh;
+    max-height: fit-content;
+    padding: 0.2rem;
+    box-sizing: border-box;
+    margin: 0.1rem;
+  }
+}
+
+#orderSuccessArticle {
+  min-height: 20vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 @media screen and (min-width: 500px) {

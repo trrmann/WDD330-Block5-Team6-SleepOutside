@@ -1,7 +1,7 @@
 import { convertToJson } from "./utils.mjs";
 
 
-export default class Alert {
+export default class AlertDisplay {
 
     constructor(){
     this.path = `../json/alerts.json`;
@@ -29,7 +29,7 @@ export default class Alert {
     });
     
 
-    document.getElementById("main-body").prepend(alertList);
+    document.getElementsByTagName("main")[0].prepend(alertList);
     }
 
     async getData(){
