@@ -1,6 +1,3 @@
-import {getLocalStorage, setLocalStorage} from './utils.mjs';
-const baseURL = import.meta.env.VITE_SERVER_URL;
-
 export default class ProductDetails{
     
     constructor(productId, dataSource){
@@ -21,6 +18,11 @@ export default class ProductDetails{
         this.product = await this.dataSource.findProductById(this.productId);
     
         this.renderProductDetails(this.product);
+    }
+
+    async getProductCategory(){
+        this.product = await this.dataSource.findProductById(this.productId);
+        return this.product.Category;
     }
 
 

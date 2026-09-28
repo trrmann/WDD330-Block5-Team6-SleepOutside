@@ -4,10 +4,12 @@ import {
   updateCartCount,
   getCartItems,
   clearCart,
-} from './cart.js';
+} from './cart.mjs';
 import { loadHeaderFooter, alertMessage } from './utils.mjs';
+import addBreadcrumbs from './breadcrumb.mjs';
 
 loadHeaderFooter();
+addBreadcrumbs();
 
 const checkout = new CheckoutProcess();
 checkout.init();
