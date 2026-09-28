@@ -1,7 +1,8 @@
-import { addToCartHandler, getCartCount } from './cart.js';
+import { addToCartHandler, getCartCount } from './cart.mjs';
 import ExternalServices from './ExternalServices.mjs';
 import ProductDetails from './ProductDetails.mjs';
-import { getParam, loadHeaderFooter } from './utils.mjs';
+import { getParam, loadHeaderFooter, alertMessage } from './utils.mjs';
+import addBreadcrumbs from './breadcrumb.mjs';
 
 function updateCartCount() {
   const cartCount = document.querySelector('#cart-count');
@@ -11,10 +12,8 @@ function updateCartCount() {
 }
 
 async function init() {
-  await loadHeaderFooter();
-
   const productId = getParam('product');
-  const dataSource = new ExternalServices('tents');
+  const dataSource = new ExternalServices();
 
   const product = new ProductDetails(productId, dataSource);
 
@@ -25,9 +24,13 @@ async function init() {
   document
     .getElementById('addToCart')
     .addEventListener('click', async (event) => {
+      alertMessage('Item added to cart');
       await addToCartHandler(event, dataSource);
       updateCartCount();
     });
+
+  loadHeaderFooter();
+  addBreadcrumbs();
 }
 
 //intialize webpage

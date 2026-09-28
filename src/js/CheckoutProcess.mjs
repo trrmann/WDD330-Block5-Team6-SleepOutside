@@ -1,4 +1,4 @@
-import { getCartItems } from './cart.js';
+import { getCartItems } from './cart.mjs';
 import { getLocalStorage } from './utils.mjs';
 import ExternalServices from './ExternalServices.mjs';
 
@@ -64,25 +64,36 @@ export default class CheckoutProcess {
     shipping.innerText = `$${this.shipping.toFixed(2)}`;
     total.innerText = `$${this.orderTotal.toFixed(2)}`;
   }
-  async checkout(form) {
-    // get the form element data by the form name
-    // convert the form data to a json object using the formDataToJSON function
-    const jsonData = formDataToJSON(form);
 
-   // populate the JSON order with the order Date, orderTotal, tax, shipping, and list of items
-   jsonData['items'] = packageItems();
-   jsonData['orderDate'] = new Date().toISOString();
-   jsonData['orderTotal'] = this.orderTotal.toFixed(2);
-   jsonData['tax'] = this.tax.toFixed(2);
-   jsonData['shipping'] = this.shipping.toFixed(2);
-   // call the checkout method in the ExternalServices modules and send it the JSON order data.
-   const services = new ExternalServices();
-   
+
+  async checkout(form) {
+    // convert the form data to a json object using the formDataToJSON function
    try {
-      const response = await services.checkout(jsonData);
-      console.log(response);
+      const jsonData = formDataToJSON(form);
+      
+      const orderDate  = new Date();
+      //Check if card is expired
+      const expiration = new Date(jsonData.expiration);
+      if(orderDate > expiration){
+        console.log('Card has Expired');
+        throw new Error('Card has Expired');
+      };
+
+
+
+      // populate the JSON order with the order Date, orderTotal, tax, shipping, and list of items
+      jsonData['items'] = packageItems();
+      jsonData['orderDate'] = orderDate.toISOString();
+      jsonData['orderTotal'] = this.orderTotal.toFixed(2);
+      jsonData['tax'] = this.tax.toFixed(2);
+      jsonData['shipping'] = this.shipping.toFixed(2);
+
+      // call the checkout method in the ExternalServices modules and send it the JSON order data.
+      const services = new ExternalServices();
+      return response = await services.checkout(jsonData);
+      
     } catch (err) {
-      console.log(err);
+      return err;
     }
   }
 }
