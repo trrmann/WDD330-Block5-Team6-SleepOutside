@@ -1,4 +1,4 @@
-import { getCartItems } from './cart.js';
+import { getCartItems } from './cart.mjs';
 import { getLocalStorage } from './utils.mjs';
 import ExternalServices from './ExternalServices.mjs';
 

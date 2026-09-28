@@ -1,4 +1,4 @@
-import { getCartCount } from './cart.js';
+import { getCartCount } from './cart.mjs';
 
 function displayCartCount(count){
 document.querySelector('#cart-count').textContent = count;}
@@ -70,8 +70,8 @@ export async function loadHeaderFooter() {
   const headerElement = document.querySelector("#main-header");
   const footerElement = document.querySelector("#main-footer");
 
-  await renderWithTemplate(headerTemplate, headerElement, getCartCount(), displayCartCount); //display # of items in cart
-  await renderWithTemplate(footerTemplate, footerElement);
+  renderWithTemplate(headerTemplate, headerElement, getCartCount(), displayCartCount); //display # of items in cart
+  renderWithTemplate(footerTemplate, footerElement);
 
 }
 

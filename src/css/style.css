@@ -604,6 +604,10 @@ end checkout styles
   flex-direction: row;
   justify-content: space-between;
 
+  p {
+    display: inline;
+  }
+
   button {
     background-color: #f05c2f;
     display: inline;
