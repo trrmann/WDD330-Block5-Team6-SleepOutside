@@ -1,7 +1,6 @@
 import { resolve } from 'path';
-import { defineConfig } from 'vite';
 
-export default defineConfig({
+export default {
   root: 'src/',
 
   server: {
@@ -21,4 +20,4 @@ export default defineConfig({
       },
     },
   },
-});
+};
