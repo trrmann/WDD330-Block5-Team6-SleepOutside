@@ -1,12 +1,19 @@
 export default class ProductList {
-  constructor(category, dataSource, listElement) {
+  constructor(category, dataSource, listElement, sortby) {
     this.category = category;
     this.dataSource = dataSource;
     this.listElement = listElement;
+    this.sortby = sortby;
   }
   async init() {
-    const list = await this.dataSource.getData(this.category);
-    
+    const rawList = await this.dataSource.getData(this.category);
+    const list = rawList.sort((a, b) => {
+      if (this.sortby === 'price') {
+        return a.FinalPrice - b.FinalPrice;
+      } else {
+        return a.NameWithoutBrand.localeCompare(b.NameWithoutBrand);
+      }
+    });    
     this.renderList(
       this.productCardTemplate.bind(this),
       this.listElement,
